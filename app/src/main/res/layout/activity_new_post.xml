@@ -30,6 +30,28 @@
         android:maxLines="10"
         android:scrollHorizontally="false" />
 
+    <EditText
+        android:id="@+id/field_origem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/field_body"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="5dp"
+        android:hint="Origem..." />
+
+    <EditText
+        android:id="@+id/field_destino"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/field_origem"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="5dp"
+        android:hint="Destino..." />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_submit_post"
         android:layout_width="wrap_content"

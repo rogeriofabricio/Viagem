@@ -33,6 +33,10 @@ public class NewPostActivity extends BaseActivity {
     private EditText mBodyField;
     private FloatingActionButton mSubmitButton;
 
+    //Viagem
+    private EditText mOrigemField;
+    private EditText mDestinoField;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,11 @@ public class NewPostActivity extends BaseActivity {
         mBodyField = findViewById(R.id.field_body);
         mSubmitButton = findViewById(R.id.fab_submit_post);
 
+        //Viagem
+        mOrigemField = findViewById(R.id.field_origem);
+        mDestinoField = findViewById(R.id.field_destino);
+
+
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +67,10 @@ public class NewPostActivity extends BaseActivity {
         final String title = mTitleField.getText().toString();
         final String body = mBodyField.getText().toString();
 
+        //Viagem
+        final String origem = mOrigemField.getText().toString();
+        final String destino = mDestinoField.getText().toString();
+
         // Title is required
         if (TextUtils.isEmpty(title)) {
             mTitleField.setError(REQUIRED);
@@ -67,6 +80,18 @@ public class NewPostActivity extends BaseActivity {
         // Body is required
         if (TextUtils.isEmpty(body)) {
             mBodyField.setError(REQUIRED);
+            return;
+        }
+
+        // Origem is required
+        if (TextUtils.isEmpty(body)) {
+            mOrigemField.setError(REQUIRED);
+            return;
+        }
+
+        // Destino is required
+        if (TextUtils.isEmpty(body)) {
+            mDestinoField.setError(REQUIRED);
             return;
         }
 
@@ -92,7 +117,7 @@ public class NewPostActivity extends BaseActivity {
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             // Write new post
-                            writeNewPost(userId, user.username, title, body);
+                            writeNewPost(userId, user.username, title, body, origem, destino);
                         }
 
                         // Finish this Activity, back to the stream
@@ -115,6 +140,12 @@ public class NewPostActivity extends BaseActivity {
     private void setEditingEnabled(boolean enabled) {
         mTitleField.setEnabled(enabled);
         mBodyField.setEnabled(enabled);
+
+        //Viagem
+        mOrigemField.setEnabled(enabled);
+        mDestinoField.setEnabled(enabled);
+
+
         if (enabled) {
             mSubmitButton.setVisibility(View.VISIBLE);
         } else {
@@ -123,11 +154,11 @@ public class NewPostActivity extends BaseActivity {
     }
 
     // [START write_fan_out]
-    private void writeNewPost(String userId, String username, String title, String body) {
+    private void writeNewPost(String userId, String username, String title, String body, String origem, String destino) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
         String key = mDatabase.child("posts").push().getKey();
-        Post post = new Post(userId, username, title, body);
+        Post post = new Post(userId, username, title, body, origem, destino);
         Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
