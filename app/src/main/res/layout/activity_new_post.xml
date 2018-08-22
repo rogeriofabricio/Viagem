@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="NewPostActivity">
 
-    <EditText
+    <!--EditText
         android:id="@+id/field_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,13 +28,12 @@
         android:hint="Write your post..."
         android:inputType="textMultiLine"
         android:maxLines="10"
-        android:scrollHorizontally="false" />
+        android:scrollHorizontally="false" /-->
 
     <EditText
         android:id="@+id/field_origem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/field_body"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"

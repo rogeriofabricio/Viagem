@@ -46,8 +46,8 @@ public class NewPostActivity extends BaseActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END initialize_database_ref]
 
-        mTitleField = findViewById(R.id.field_title);
-        mBodyField = findViewById(R.id.field_body);
+//        mTitleField = findViewById(R.id.field_title);
+//        mBodyField = findViewById(R.id.field_body);
         mSubmitButton = findViewById(R.id.fab_submit_post);
 
         //Viagem
@@ -64,33 +64,33 @@ public class NewPostActivity extends BaseActivity {
     }
 
     private void submitPost() {
-        final String title = mTitleField.getText().toString();
-        final String body = mBodyField.getText().toString();
+//        final String title = mTitleField.getText().toString();
+//        final String body = mBodyField.getText().toString();
 
         //Viagem
         final String origem = mOrigemField.getText().toString();
         final String destino = mDestinoField.getText().toString();
 
         // Title is required
-        if (TextUtils.isEmpty(title)) {
-            mTitleField.setError(REQUIRED);
-            return;
-        }
-
-        // Body is required
-        if (TextUtils.isEmpty(body)) {
-            mBodyField.setError(REQUIRED);
-            return;
-        }
+//        if (TextUtils.isEmpty(title)) {
+//            mTitleField.setError(REQUIRED);
+//            return;
+//        }
+//
+//        // Body is required
+//        if (TextUtils.isEmpty(body)) {
+//            mBodyField.setError(REQUIRED);
+//            return;
+//        }
 
         // Origem is required
-        if (TextUtils.isEmpty(body)) {
+        if (TextUtils.isEmpty(origem)) {
             mOrigemField.setError(REQUIRED);
             return;
         }
 
         // Destino is required
-        if (TextUtils.isEmpty(body)) {
+        if (TextUtils.isEmpty(destino)) {
             mDestinoField.setError(REQUIRED);
             return;
         }
@@ -117,7 +117,7 @@ public class NewPostActivity extends BaseActivity {
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             // Write new post
-                            writeNewPost(userId, user.username, title, body, origem, destino);
+                            writeNewPost(userId, user.username, origem, destino);
                         }
 
                         // Finish this Activity, back to the stream
@@ -138,8 +138,8 @@ public class NewPostActivity extends BaseActivity {
     }
 
     private void setEditingEnabled(boolean enabled) {
-        mTitleField.setEnabled(enabled);
-        mBodyField.setEnabled(enabled);
+//        mTitleField.setEnabled(enabled);
+//        mBodyField.setEnabled(enabled);
 
         //Viagem
         mOrigemField.setEnabled(enabled);
@@ -154,11 +154,11 @@ public class NewPostActivity extends BaseActivity {
     }
 
     // [START write_fan_out]
-    private void writeNewPost(String userId, String username, String title, String body, String origem, String destino) {
+    private void writeNewPost(String userId, String username, String origem, String destino) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
         String key = mDatabase.child("posts").push().getKey();
-        Post post = new Post(userId, username, title, body, origem, destino);
+        Post post = new Post(userId, username, origem, destino);
         Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
