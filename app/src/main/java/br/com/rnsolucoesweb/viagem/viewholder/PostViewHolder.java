@@ -16,6 +16,10 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     public TextView numStarsView;
     public TextView bodyView;
 
+    //Viagem
+    public TextView origemView;
+    public TextView destinoView;
+
     public PostViewHolder(View itemView) {
         super(itemView);
 
@@ -24,6 +28,10 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         starView = itemView.findViewById(R.id.star);
         numStarsView = itemView.findViewById(R.id.post_num_stars);
         bodyView = itemView.findViewById(R.id.post_body);
+
+        //Viagem
+        origemView = itemView.findViewById(R.id.post_origem);
+        destinoView = itemView.findViewById(R.id.post_destino);
     }
 
     public void bindToPost(Post post, View.OnClickListener starClickListener) {
@@ -31,6 +39,10 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         authorView.setText(post.author);
         numStarsView.setText(String.valueOf(post.starCount));
         bodyView.setText(post.body);
+
+        //Viagem
+        origemView.setText(post.origem);
+        destinoView.setText(post.destino);
 
         starView.setOnClickListener(starClickListener);
     }
