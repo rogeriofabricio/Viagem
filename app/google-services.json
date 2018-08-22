@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "705089220842",
+    "firebase_url": "https://viagem-61587.firebaseio.com",
+    "project_id": "viagem-61587",
+    "storage_bucket": "viagem-61587.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705089220842:android:e69520b58cb61e2c",
+        "android_client_info": {
+          "package_name": "br.com.rnsolucoesweb.viagem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705089220842-5bed609ij8m5kuu8gt4s4ti6ob4l46fr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.rnsolucoesweb.viagem",
+            "certificate_hash": "e42e36a1208047341f93d407cebca0e63dbf2ee0"
+          }
+        },
+        {
+          "client_id": "705089220842-qfjqji43pm0ucdtq7oh9tr88i82ohkse.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD__p8ey71n_GcdNRH2tXEmte6FW1PK-9c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705089220842-qfjqji43pm0ucdtq7oh9tr88i82ohkse.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "705089220842-u9fadr67bvv0ppapehrajr208tnjev8t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "br.com.rnsolucoesweb.viagem"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
