@@ -24,12 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.rnsolucoesweb.viagem.models.Comment;
-import br.com.rnsolucoesweb.viagem.models.Post;
+import br.com.rnsolucoesweb.viagem.models.Trip;
 import br.com.rnsolucoesweb.viagem.models.User;
 
-public class PostDetailActivity extends BaseActivity implements View.OnClickListener {
+public class TripDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final String TAG = "PostDetailActivity";
+    private static final String TAG = "TripDetailActivity";
 
     public static final String EXTRA_POST_KEY = "post_key";
 
@@ -49,7 +49,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_detail);
+        setContentView(R.layout.activity_trip_detail);
 
         // Get post key from intent
         mPostKey = getIntent().getStringExtra(EXTRA_POST_KEY);
@@ -85,21 +85,21 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                Post post = dataSnapshot.getValue(Post.class);
+                // Get Trip object and use the values to update the UI
+                Trip trip = dataSnapshot.getValue(Trip.class);
                 // [START_EXCLUDE]
-                mAuthorView.setText(post.author);
-//                mTitleView.setText(post.title);
-//                mBodyView.setText(post.body);
+                mAuthorView.setText(trip.author);
+//                mTitleView.setText(trip.title);
+//                mBodyView.setText(trip.body);
                 // [END_EXCLUDE]
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
+                // Getting Trip failed, log a message
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
                 // [START_EXCLUDE]
-                Toast.makeText(PostDetailActivity.this, "Failed to load post.",
+                Toast.makeText(TripDetailActivity.this, "Failed to load post.",
                         Toast.LENGTH_SHORT).show();
                 // [END_EXCLUDE]
             }

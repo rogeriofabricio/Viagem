@@ -28,9 +28,9 @@ import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import br.com.rnsolucoesweb.viagem.fragment.MyPostsFragment;
-import br.com.rnsolucoesweb.viagem.fragment.MyTopPostsFragment;
-import br.com.rnsolucoesweb.viagem.fragment.RecentPostsFragment;
+import br.com.rnsolucoesweb.viagem.fragment.MyTripsFragment;
+import br.com.rnsolucoesweb.viagem.fragment.MyTopTripsFragment;
+import br.com.rnsolucoesweb.viagem.fragment.RecentTripsFragment;
 
 public class  MainActivity extends BaseActivity {
 
@@ -47,9 +47,9 @@ public class  MainActivity extends BaseActivity {
         // Cria o adapter que retornará o fragmento de cada sessão
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
-                    new RecentPostsFragment(),
-                    new MyPostsFragment(),
-                    new MyTopPostsFragment(),
+                    new RecentTripsFragment(),
+                    new MyTripsFragment(),
+                    new MyTopTripsFragment(),
             };
             private final String[] mFragmentNames = new String[] {
                     getString(R.string.heading_viagemRecente),
@@ -75,11 +75,11 @@ public class  MainActivity extends BaseActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        // Button launches NewPostActivity
+        // Button launches NewTripActivity
         findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, NewPostActivity.class));
+                startActivity(new Intent(MainActivity.this, NewTripActivity.class));
             }
         });
     }

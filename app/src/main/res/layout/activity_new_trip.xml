@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="NewPostActivity">
+    tools:context=".NewTripActivity">
 
 
     <EditText
@@ -28,7 +28,7 @@
         android:hint="Destino..." />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_submit_post"
+        android:id="@+id/fab_submit_trip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

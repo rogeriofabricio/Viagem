@@ -18,8 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewPostActivity" />
-        <activity android:name=".PostDetailActivity" />
+        <activity android:name=".NewTripActivity" />
+        <activity android:name=".TripDetailActivity" />
         <activity android:name=".MainActivity" />
     </application>
 

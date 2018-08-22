@@ -17,12 +17,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.rnsolucoesweb.viagem.models.Post;
+import br.com.rnsolucoesweb.viagem.models.Trip;
 import br.com.rnsolucoesweb.viagem.models.User;
 
-public class NewPostActivity extends BaseActivity {
+public class NewTripActivity extends BaseActivity {
 
-    private static final String TAG = "NewPostActivity";
+    private static final String TAG = "NewTripActivity";
     private static final String REQUIRED = "Required";
 
     // [START declare_database_ref]
@@ -38,7 +38,7 @@ public class NewPostActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_post);
+        setContentView(R.layout.activity_new_trip);
 
         // [START initialize_database_ref]
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -46,18 +46,17 @@ public class NewPostActivity extends BaseActivity {
 
         mOrigemField = findViewById(R.id.field_origem);
         mDestinoField = findViewById(R.id.field_destino);
-        mSubmitButton = findViewById(R.id.fab_submit_post);
-
+        mSubmitButton = findViewById(R.id.fab_submit_trip);
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitPost();
+                submitTrip();
             }
         });
     }
 
-    private void submitPost() {
+    private void submitTrip() {
 
         final String origem = mOrigemField.getText().toString();
         final String destino = mDestinoField.getText().toString();
@@ -92,12 +91,12 @@ public class NewPostActivity extends BaseActivity {
                         if (user == null) {
                             // User is null, error out
                             Log.e(TAG, "User " + userId + " is unexpectedly null");
-                            Toast.makeText(NewPostActivity.this,
+                            Toast.makeText(NewTripActivity.this,
                                     "Error: could not fetch user.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            // Write new post
-                            writeNewPost(userId, user.username, origem, destino);
+                            // Write new trip
+                            writeNewTrip(userId, user.username, origem, destino);
                         }
 
                         // Finish this Activity, back to the stream
@@ -131,16 +130,16 @@ public class NewPostActivity extends BaseActivity {
     }
 
     // [START write_fan_out]
-    private void writeNewPost(String userId, String username, String origem, String destino) {
-        // Create new post at /user-posts/$userid/$postid and at
+    private void writeNewTrip(String userId, String username, String origem, String destino) {
+        // Create new trip at /user-trips/$userid/$tripid and at
         // /posts/$postid simultaneously
-        String key = mDatabase.child("posts").push().getKey();
-        Post post = new Post(userId, username, origem, destino);
-        Map<String, Object> postValues = post.toMap();
+        String key = mDatabase.child("trips").push().getKey();
+        Trip trip = new Trip(userId, username, origem, destino);
+        Map<String, Object> tripValues = trip.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/posts/" + key, postValues);
-        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
+        childUpdates.put("/trips/" + key, tripValues);
+        childUpdates.put("/user-trips/" + userId + "/" + key, tripValues);
 
         mDatabase.updateChildren(childUpdates);
     }
