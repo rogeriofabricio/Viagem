@@ -132,16 +132,6 @@ public abstract class PostListFragment extends Fragment {
                     return Transaction.success(mutableData);
                 }
 
-//                if (p.stars.containsKey(getUid())) {
-//                    // Unstar the post and remove self from stars
-//                    p.starCount = p.starCount - 1;
-//                    p.stars.remove(getUid());
-//                } else {
-//                    // Star the post and add self to stars
-//                    p.starCount = p.starCount + 1;
-//                    p.stars.put(getUid(), true);
-//                }
-
                 // Set value and report transaction success
                 mutableData.setValue(p);
                 return Transaction.success(mutableData);

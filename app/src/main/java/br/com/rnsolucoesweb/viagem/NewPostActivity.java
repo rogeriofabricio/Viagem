@@ -29,13 +29,11 @@ public class NewPostActivity extends BaseActivity {
     private DatabaseReference mDatabase;
     // [END declare_database_ref]
 
-    private EditText mTitleField;
-    private EditText mBodyField;
-    private FloatingActionButton mSubmitButton;
-
-    //Viagem
     private EditText mOrigemField;
     private EditText mDestinoField;
+
+    private FloatingActionButton mSubmitButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +44,9 @@ public class NewPostActivity extends BaseActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END initialize_database_ref]
 
-//        mTitleField = findViewById(R.id.field_title);
-//        mBodyField = findViewById(R.id.field_body);
-        mSubmitButton = findViewById(R.id.fab_submit_post);
-
-        //Viagem
         mOrigemField = findViewById(R.id.field_origem);
         mDestinoField = findViewById(R.id.field_destino);
+        mSubmitButton = findViewById(R.id.fab_submit_post);
 
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
@@ -64,24 +58,10 @@ public class NewPostActivity extends BaseActivity {
     }
 
     private void submitPost() {
-//        final String title = mTitleField.getText().toString();
-//        final String body = mBodyField.getText().toString();
 
-        //Viagem
         final String origem = mOrigemField.getText().toString();
         final String destino = mDestinoField.getText().toString();
 
-        // Title is required
-//        if (TextUtils.isEmpty(title)) {
-//            mTitleField.setError(REQUIRED);
-//            return;
-//        }
-//
-//        // Body is required
-//        if (TextUtils.isEmpty(body)) {
-//            mBodyField.setError(REQUIRED);
-//            return;
-//        }
 
         // Origem is required
         if (TextUtils.isEmpty(origem)) {
@@ -138,10 +118,7 @@ public class NewPostActivity extends BaseActivity {
     }
 
     private void setEditingEnabled(boolean enabled) {
-//        mTitleField.setEnabled(enabled);
-//        mBodyField.setEnabled(enabled);
 
-        //Viagem
         mOrigemField.setEnabled(enabled);
         mDestinoField.setEnabled(enabled);
 
