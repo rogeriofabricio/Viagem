@@ -28,7 +28,6 @@ import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import br.com.rnsolucoesweb.viagem.fragment.MinhasViagensFragment;
 import br.com.rnsolucoesweb.viagem.fragment.MyPostsFragment;
 import br.com.rnsolucoesweb.viagem.fragment.MyTopPostsFragment;
 import br.com.rnsolucoesweb.viagem.fragment.RecentPostsFragment;
@@ -49,7 +48,7 @@ public class  MainActivity extends BaseActivity {
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
                     new RecentPostsFragment(),
-                    new MinhasViagensFragment(),
+                    new MyPostsFragment(),
                     new MyTopPostsFragment(),
             };
             private final String[] mFragmentNames = new String[] {
@@ -80,7 +79,7 @@ public class  MainActivity extends BaseActivity {
         findViewById(R.id.fab_new_post).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, NovaViagemActivity.class));
+                startActivity(new Intent(MainActivity.this, NewPostActivity.class));
             }
         });
     }

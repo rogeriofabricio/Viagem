@@ -21,8 +21,6 @@
         <activity android:name=".NewPostActivity" />
         <activity android:name=".PostDetailActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".DetalhesViagemActivity" />
-        <activity android:name=".NovaViagemActivity"></activity>
     </application>
 
 </manifest>
