@@ -2,6 +2,7 @@ package br.com.rnsolucoesweb.viagem;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
@@ -35,8 +36,11 @@ public class NewTripActivity extends BaseActivity implements View.OnClickListene
     private DatabaseReference mDatabase;
     // [END declare_database_ref]
 
-    private EditText mDepartureField;
-    private EditText mArrivalField;
+    public String mDepartureR;
+    public String mArrivalR;
+
+    private TextView mDepartureField;
+    private TextView mArrivalField;
     public TextView mDateField;
     public Button mDateButton;
 
@@ -54,12 +58,19 @@ public class NewTripActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_trip);
 
+        // Get the Intent that started this activity and extract the string
+        Bundle arrival = getIntent().getExtras();
+        mDepartureR = arrival.getString("departure");
+        mArrivalR = arrival.getString("arrival");
+
         // [START initialize_database_ref]
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END initialize_database_ref]
 
         mDepartureField = findViewById(R.id.field_departure);
+        mDepartureField.setText(mDepartureR);
         mArrivalField = findViewById(R.id.field_arrival);
+        mArrivalField.setText(mArrivalR);
         mSubmitButton = findViewById(R.id.fab_submit_trip);
 
         mDateButton = findViewById(R.id.button_date);
@@ -127,6 +138,7 @@ public class NewTripActivity extends BaseActivity implements View.OnClickListene
 
                         // Finish this Activity, back to the stream
                         setEditingEnabled(true);
+                        GoToMainActivity();
                         finish();
                         // [END_EXCLUDE]
                     }
@@ -136,6 +148,7 @@ public class NewTripActivity extends BaseActivity implements View.OnClickListene
                         Log.w(TAG, "getUser:onCancelled", databaseError.toException());
                         // [START_EXCLUDE]
                         setEditingEnabled(true);
+                        GoToMainActivity();
                         // [END_EXCLUDE]
                     }
                 });
@@ -202,6 +215,12 @@ public class NewTripActivity extends BaseActivity implements View.OnClickListene
         } else {
             mSubmitButton.setVisibility(View.GONE);
         }
+    }
+
+    public void GoToMainActivity() {
+
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 
     // [START write_fan_out]

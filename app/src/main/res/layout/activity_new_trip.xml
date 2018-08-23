@@ -6,7 +6,7 @@
     tools:context=".NewTripActivity">
 
 
-    <EditText
+    <TextView
         android:id="@+id/field_departure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,9 +14,11 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="5dp"
-        android:hint="Origem..." />
+        android:hint="Origem..."
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-    <EditText
+    <TextView
         android:id="@+id/field_arrival"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +27,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="5dp"
-        android:hint="Destino..." />
+        android:hint="Destino..."
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <!--EditText
         android:id="@+id/field_date"

@@ -47,13 +47,13 @@ public class  MainActivity extends BaseActivity {
         // Cria o adapter que retornará o fragmento de cada sessão
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
-                    new RecentTripsFragment(),
                     new MyTripsFragment(),
+                    new RecentTripsFragment(),
                     new MyTopTripsFragment(),
             };
             private final String[] mFragmentNames = new String[] {
-                    getString(R.string.heading_viagemRecente),
                     getString(R.string.heading_minhasViagens),
+                    getString(R.string.heading_viagemRecente),
                     getString(R.string.heading_my_top_posts)
             };
             @Override
@@ -79,7 +79,7 @@ public class  MainActivity extends BaseActivity {
         findViewById(R.id.fab_new_trip).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, NewTripActivity.class));
+                startActivity(new Intent(MainActivity.this, DepartureActivity.class));
             }
         });
     }
