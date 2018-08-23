@@ -31,7 +31,7 @@ public class TripDetailActivity extends BaseActivity implements View.OnClickList
 
     private static final String TAG = "TripDetailActivity";
 
-    public static final String EXTRA_POST_KEY = "post_key";
+    public static final String EXTRA_TRIP_KEY = "trip_key";
 
     private DatabaseReference mPostReference;
     private DatabaseReference mCommentsReference;
@@ -52,7 +52,7 @@ public class TripDetailActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_trip_detail);
 
         // Get post key from intent
-        mPostKey = getIntent().getStringExtra(EXTRA_POST_KEY);
+        mPostKey = getIntent().getStringExtra(EXTRA_TRIP_KEY);
         if (mPostKey == null) {
             throw new IllegalArgumentException("Must pass EXTRA_POST_KEY");
         }
@@ -64,7 +64,7 @@ public class TripDetailActivity extends BaseActivity implements View.OnClickList
                 .child("post-comments").child(mPostKey);
 
         // Initialize Views
-        mAuthorView = findViewById(R.id.post_author);
+        mAuthorView = findViewById(R.id.trip_author);
 //        mTitleView = findViewById(R.id.post_title);
 //        mBodyView = findViewById(R.id.post_body);
         mCommentField = findViewById(R.id.field_comment_text);

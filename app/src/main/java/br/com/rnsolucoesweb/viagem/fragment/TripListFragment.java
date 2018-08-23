@@ -83,16 +83,16 @@ public abstract class TripListFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(TripViewHolder viewHolder, int position, final Trip model) {
-                final DatabaseReference postRef = getRef(position);
+                final DatabaseReference tripRef = getRef(position);
 
                 // Set click listener for the whole trip view
-                final String postKey = postRef.getKey();
+                final String tripKey = tripRef.getKey();
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // Launch TripDetailActivity
                         Intent intent = new Intent(getActivity(), TripDetailActivity.class);
-                        intent.putExtra(TripDetailActivity.EXTRA_POST_KEY, postKey);
+                        intent.putExtra(TripDetailActivity.EXTRA_TRIP_KEY, tripKey);
                         startActivity(intent);
                     }
                 });
@@ -109,8 +109,8 @@ public abstract class TripListFragment extends Fragment {
                     @Override
                     public void onClick(View starView) {
                         // Need to write to both places the trip is stored
-                        DatabaseReference globalTripRef = mDatabase.child("trips").child(postRef.getKey());
-                        DatabaseReference userTripRef = mDatabase.child("user-trips").child(model.uid).child(postRef.getKey());
+                        DatabaseReference globalTripRef = mDatabase.child("trips").child(tripRef.getKey());
+                        DatabaseReference userTripRef = mDatabase.child("user-trips").child(model.uid).child(tripRef.getKey());
 
                         // Run two transactions
                         onStarClicked(globalTripRef);

@@ -1,11 +1,16 @@
 package br.com.rnsolucoesweb.viagem;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -14,13 +19,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 import br.com.rnsolucoesweb.viagem.models.Trip;
 import br.com.rnsolucoesweb.viagem.models.User;
 
-public class NewTripActivity extends BaseActivity {
+public class NewTripActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "NewTripActivity";
     private static final String REQUIRED = "Required";
@@ -29,8 +35,16 @@ public class NewTripActivity extends BaseActivity {
     private DatabaseReference mDatabase;
     // [END declare_database_ref]
 
-    private EditText mOrigemField;
-    private EditText mDestinoField;
+    private EditText mDepartureField;
+    private EditText mArrivalField;
+    public TextView mDateField;
+    public Button mDateButton;
+
+    //Date datePicker
+    public String mTripDate;
+    public String mTripDateBR;
+
+    static final int DATE_DIALOG_ID = 0;
 
     private FloatingActionButton mSubmitButton;
 
@@ -44,9 +58,14 @@ public class NewTripActivity extends BaseActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END initialize_database_ref]
 
-        mOrigemField = findViewById(R.id.field_origem);
-        mDestinoField = findViewById(R.id.field_destino);
+        mDepartureField = findViewById(R.id.field_departure);
+        mArrivalField = findViewById(R.id.field_arrival);
         mSubmitButton = findViewById(R.id.fab_submit_trip);
+
+        mDateButton = findViewById(R.id.button_date);
+        mDateButton.setOnClickListener(this);
+
+        mDateField = findViewById(R.id.field_date);
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,19 +77,26 @@ public class NewTripActivity extends BaseActivity {
 
     private void submitTrip() {
 
-        final String origem = mOrigemField.getText().toString();
-        final String destino = mDestinoField.getText().toString();
+        final String departure = mDepartureField.getText().toString();
+        final String arrival = mArrivalField.getText().toString();
+        final String date = mDateField.getText().toString();
 
 
-        // Origem is required
-        if (TextUtils.isEmpty(origem)) {
-            mOrigemField.setError(REQUIRED);
+        // Departure is required
+        if (TextUtils.isEmpty(departure)) {
+            mDepartureField.setError(REQUIRED);
             return;
         }
 
-        // Destino is required
-        if (TextUtils.isEmpty(destino)) {
-            mDestinoField.setError(REQUIRED);
+        // Arrival is required
+        if (TextUtils.isEmpty(arrival)) {
+            mArrivalField.setError(REQUIRED);
+            return;
+        }
+
+        // Date is required
+        if (TextUtils.isEmpty(date)) {
+            mDateField.setError(REQUIRED);
             return;
         }
 
@@ -96,7 +122,7 @@ public class NewTripActivity extends BaseActivity {
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             // Write new trip
-                            writeNewTrip(userId, user.username, origem, destino);
+                            writeNewTrip(userId, user.username, departure, arrival, date);
                         }
 
                         // Finish this Activity, back to the stream
@@ -116,10 +142,59 @@ public class NewTripActivity extends BaseActivity {
         // [END single_value_read]
     }
 
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        Calendar calendario = Calendar.getInstance();
+
+        int year = calendario.get(Calendar.YEAR);
+        int month = calendario.get(Calendar.MONTH);
+        int day = calendario.get(Calendar.DAY_OF_MONTH);
+
+        switch (id) {
+            case DATE_DIALOG_ID:
+                return new DatePickerDialog(this, mDateSetListener, year, month,
+                        day);
+        }
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+
+                    if (monthOfYear < 10 && dayOfMonth < 10) {
+                        mTripDate = String.valueOf(year) + "0" + String.valueOf(monthOfYear+1) + "0" + String.valueOf(dayOfMonth);
+                    } else if (monthOfYear < 10 && dayOfMonth > 9) {
+                        mTripDate = String.valueOf(year) + "0" + String.valueOf(monthOfYear+1) + String.valueOf(dayOfMonth);
+                    } else if (monthOfYear > 9 && dayOfMonth < 10){
+                        mTripDate = String.valueOf(year) + String.valueOf(monthOfYear+1) + "0" + String.valueOf(dayOfMonth);
+                    } else {
+                        mTripDate = String.valueOf(year) + String.valueOf(monthOfYear+1) + String.valueOf(dayOfMonth);
+                    }
+
+                    mTripDateBR = String.valueOf(dayOfMonth) + "/" + String.valueOf(monthOfYear+1) + "/" + String.valueOf(year);
+                    mDateField.setText(mTripDateBR);
+                    //Toast.makeText(ViagemActivity.this, "DATA = " + dataViagem, Toast.LENGTH_SHORT).show();
+                }
+            };
+
+    @Override
+    public void onClick(View v) {
+        if (v == mDateButton)
+            showDialog(DATE_DIALOG_ID);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
     private void setEditingEnabled(boolean enabled) {
 
-        mOrigemField.setEnabled(enabled);
-        mDestinoField.setEnabled(enabled);
+        mDepartureField.setEnabled(enabled);
+        mArrivalField.setEnabled(enabled);
+        mDateField.setEnabled(enabled);
 
 
         if (enabled) {
@@ -130,11 +205,11 @@ public class NewTripActivity extends BaseActivity {
     }
 
     // [START write_fan_out]
-    private void writeNewTrip(String userId, String username, String origem, String destino) {
+    private void writeNewTrip(String userId, String username, String departure, String arrival, String date) {
         // Create new trip at /user-trips/$userid/$tripid and at
         // /posts/$postid simultaneously
         String key = mDatabase.child("trips").push().getKey();
-        Trip trip = new Trip(userId, username, origem, destino);
+        Trip trip = new Trip(userId, username, departure, arrival, date);
         Map<String, Object> tripValues = trip.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();

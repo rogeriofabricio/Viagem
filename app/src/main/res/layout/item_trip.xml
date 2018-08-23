@@ -11,7 +11,7 @@
         android:padding="10dp">
 
         <include
-            android:id="@+id/post_author_layout"
+            android:id="@+id/trip_author_layout"
             layout="@layout/include_trip_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

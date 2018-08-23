@@ -10,22 +10,25 @@ import br.com.rnsolucoesweb.viagem.models.Trip;
 public class TripViewHolder extends RecyclerView.ViewHolder {
 
     public TextView authorView;
-    public TextView origemView;
-    public TextView destinoView;
+    public TextView departureView;
+    public TextView arrivalView;
+    public TextView datelView;
 
     public TripViewHolder(View itemView) {
         super(itemView);
 
-        authorView = itemView.findViewById(R.id.post_author);
-        origemView = itemView.findViewById(R.id.post_origem);
-        destinoView = itemView.findViewById(R.id.post_destino);
+        authorView = itemView.findViewById(R.id.trip_author);
+        departureView = itemView.findViewById(R.id.trip_departure);
+        arrivalView = itemView.findViewById(R.id.trip_arrival);
+        datelView = itemView.findViewById(R.id.trip_date);
     }
 
     public void bindToTrip(Trip trip, View.OnClickListener starClickListener) {
 
         authorView.setText(trip.author);
-        origemView.setText(trip.origem);
-        destinoView.setText(trip.destino);
+        departureView.setText(trip.departure);
+        arrivalView.setText(trip.arrival);
+        datelView.setText(trip.date);
 
         //starView.setOnClickListener(starClickListener);
     }

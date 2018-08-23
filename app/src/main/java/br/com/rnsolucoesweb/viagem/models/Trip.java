@@ -12,8 +12,9 @@ public class Trip {
 
     public String uid;
     public String author;
-    public String origem;
-    public String destino;
+    public String departure;
+    public String arrival;
+    public String date;
     public Map<String, Boolean> stars = new HashMap<>();
 
 
@@ -21,11 +22,12 @@ public class Trip {
         // Default constructor required for calls to DataSnapshot.getValue(Trip.class)
     }
 
-    public Trip(String uid, String author, String origem, String destino) {
+    public Trip(String uid, String author, String departure, String arrival, String date) {
         this.uid = uid;
         this.author = author;
-        this.origem = origem;
-        this.destino = destino;
+        this.departure = departure;
+        this.arrival = arrival;
+        this.date = date;
     }
 
     // [START trip_to_map]
@@ -34,8 +36,9 @@ public class Trip {
         HashMap<String, Object> result = new HashMap<>();
         result.put("uid", uid);
         result.put("author", author);
-        result.put("origem", origem);
-        result.put("destino", destino);
+        result.put("departure", departure);
+        result.put("arrival", arrival);
+        result.put("date", date);
 
         return result;
     }
