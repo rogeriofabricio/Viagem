@@ -48,13 +48,9 @@ public class  MainActivity extends BaseActivity {
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
                     new MyTripsFragment(),
-                    new RecentTripsFragment(),
-                    new MyTopTripsFragment(),
             };
             private final String[] mFragmentNames = new String[] {
-                    getString(R.string.heading_minhasViagens),
-                    getString(R.string.heading_viagemRecente),
-                    getString(R.string.heading_my_top_posts)
+                    getString(R.string.heading_minhasViagens)
             };
             @Override
             public Fragment getItem(int position) {

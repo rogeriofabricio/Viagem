@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Viagem</string>
+    <string name="app_name">VipVan da Serra</string>
 
     <string name="email">E-mail</string>
     <string name="password">Pin</string>
@@ -40,11 +40,11 @@
     <string name="desc_firebase_ui">Use the FirebaseUI-Android library to authenticate with Firebase.</string>
 
 
-    <string name="sign_up">Sign Up</string>
+    <string name="sign_up">Criar Conta</string>
 
     <string name="hint_user_id">User ID</string>
     <string name="get_custom_token">Get Token</string>
-    <string name="sign_in">Sign In</string>
+    <string name="sign_in">Entrar</string>
     <string name="create_account">Create Account</string>
     <string name="send_link">Send Link</string>
     <string name="sign_out">Sign Out</string>

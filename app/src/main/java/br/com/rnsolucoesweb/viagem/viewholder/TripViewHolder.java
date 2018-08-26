@@ -17,7 +17,7 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
     public TripViewHolder(View itemView) {
         super(itemView);
 
-        authorView = itemView.findViewById(R.id.trip_author);
+//        authorView = itemView.findViewById(R.id.trip_author);
         departureView = itemView.findViewById(R.id.trip_departure);
         arrivalView = itemView.findViewById(R.id.trip_arrival);
         datelView = itemView.findViewById(R.id.trip_date);
@@ -25,7 +25,7 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
 
     public void bindToTrip(Trip trip, View.OnClickListener starClickListener) {
 
-        authorView.setText(trip.author);
+//        authorView.setText(trip.author);
         departureView.setText(trip.departure);
         arrivalView.setText(trip.arrival);
         datelView.setText(trip.date);

@@ -64,7 +64,7 @@ public class TripDetailActivity extends BaseActivity implements View.OnClickList
                 .child("post-comments").child(mPostKey);
 
         // Initialize Views
-        mAuthorView = findViewById(R.id.trip_author);
+//        mAuthorView = findViewById(R.id.trip_author);
 //        mTitleView = findViewById(R.id.post_title);
 //        mBodyView = findViewById(R.id.post_body);
         mCommentField = findViewById(R.id.field_comment_text);
@@ -88,7 +88,7 @@ public class TripDetailActivity extends BaseActivity implements View.OnClickList
                 // Get Trip object and use the values to update the UI
                 Trip trip = dataSnapshot.getValue(Trip.class);
                 // [START_EXCLUDE]
-                mAuthorView.setText(trip.author);
+//                mAuthorView.setText(trip.author);
 //                mTitleView.setText(trip.title);
 //                mBodyView.setText(trip.body);
                 // [END_EXCLUDE]
@@ -172,7 +172,7 @@ public class TripDetailActivity extends BaseActivity implements View.OnClickList
         public CommentViewHolder(View itemView) {
             super(itemView);
 
-            authorView = itemView.findViewById(R.id.comment_author);
+//            authorView = itemView.findViewById(R.id.comment_author);
             bodyView = itemView.findViewById(R.id.comment_body);
         }
     }
@@ -290,7 +290,7 @@ public class TripDetailActivity extends BaseActivity implements View.OnClickList
         @Override
         public void onBindViewHolder(CommentViewHolder holder, int position) {
             Comment comment = mComments.get(position);
-            holder.authorView.setText(comment.author);
+//            holder.authorView.setText(comment.author);
             holder.bodyView.setText(comment.text);
         }
 

@@ -1,30 +1,26 @@
 package br.com.rnsolucoesweb.viagem.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.Transaction;
 
-import br.com.rnsolucoesweb.viagem.TripDetailActivity;
 import br.com.rnsolucoesweb.viagem.R;
 import br.com.rnsolucoesweb.viagem.models.Trip;
 import br.com.rnsolucoesweb.viagem.viewholder.TripViewHolder;
+
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public abstract class TripListFragment extends Fragment {
 
@@ -82,18 +78,20 @@ public abstract class TripListFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(TripViewHolder viewHolder, int position, final Trip model) {
+            protected void onBindViewHolder(TripViewHolder viewHolder, final int position, final Trip model) {
                 final DatabaseReference tripRef = getRef(position);
 
                 // Set click listener for the whole trip view
                 final String tripKey = tripRef.getKey();
-                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        // Launch TripDetailActivity
-                        Intent intent = new Intent(getActivity(), TripDetailActivity.class);
-                        intent.putExtra(TripDetailActivity.EXTRA_TRIP_KEY, tripKey);
-                        startActivity(intent);
+                    public boolean onLongClick(View v) {
+
+                        Toast.makeText(getApplicationContext(), "Apagando...", Toast.LENGTH_LONG).show();
+                        mDatabase.child("trips").child(tripKey).removeValue();
+                        mDatabase.child("user-trips").child(model.uid).child(tripKey).removeValue();
+
+                        return false;
                     }
                 });
 
@@ -112,41 +110,12 @@ public abstract class TripListFragment extends Fragment {
                         DatabaseReference globalTripRef = mDatabase.child("trips").child(tripRef.getKey());
                         DatabaseReference userTripRef = mDatabase.child("user-trips").child(model.uid).child(tripRef.getKey());
 
-                        // Run two transactions
-                        onStarClicked(globalTripRef);
-                        onStarClicked(userTripRef);
                     }
                 });
             }
         };
         mRecycler.setAdapter(mAdapter);
     }
-
-    // [START trip_stars_transaction]
-    private void onStarClicked(DatabaseReference postRef) {
-        postRef.runTransaction(new Transaction.Handler() {
-            @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
-                Trip p = mutableData.getValue(Trip.class);
-                if (p == null) {
-                    return Transaction.success(mutableData);
-                }
-
-                // Set value and report transaction success
-                mutableData.setValue(p);
-                return Transaction.success(mutableData);
-            }
-
-            @Override
-            public void onComplete(DatabaseError databaseError, boolean b,
-                                   DataSnapshot dataSnapshot) {
-                // Transaction completed
-                Log.d(TAG, "tripTransaction:onComplete:" + databaseError);
-            }
-        });
-    }
-    // [END post_stars_transaction]
-
 
     @Override
     public void onStart() {
