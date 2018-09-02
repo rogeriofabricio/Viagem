@@ -75,7 +75,7 @@ public class  MainActivity extends BaseActivity {
         findViewById(R.id.fab_new_trip).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, DepartureActivity.class));
+                startActivity(new Intent(MainActivity.this, NewTripActivity.class));
             }
         });
     }

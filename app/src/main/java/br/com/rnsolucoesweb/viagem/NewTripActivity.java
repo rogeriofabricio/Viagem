@@ -1,7 +1,10 @@
 package br.com.rnsolucoesweb.viagem;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -28,6 +31,12 @@ import br.com.rnsolucoesweb.viagem.models.Trip;
 import br.com.rnsolucoesweb.viagem.models.User;
 
 public class NewTripActivity extends BaseActivity implements View.OnClickListener {
+
+    private Button btDeparture;
+    private Button btArrival;
+    private TextView tvDeparture;
+    private TextView tvArrival;
+    Context context = this;
 
     private static final String TAG = "NewTripActivity";
     private static final String REQUIRED = "Required";
@@ -58,19 +67,105 @@ public class NewTripActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_trip);
 
+        //button's reference
+        btDeparture = findViewById(R.id.btDeparture);
+        btArrival = findViewById(R.id.btArrival);
+        tvDeparture = findViewById(R.id.tv_bt_departure);
+        tvArrival = findViewById(R.id.tv_bt_arrival);
+
+        //setting button's click and implementing the onClick method
+        btDeparture.setOnClickListener(new View.OnClickListener() {
+
+            @Override  public void onClick(View v) {
+                //List of items to be show in  alert Dialog are stored in array of strings/char sequences  final
+                final String[] items = {"Recife", "Gravatá", "Bezerros", "Caruaru", "Belo Jardim", "Pesqueira", "Arcoverde", "Algodões", "Custódia", "Sítio dos Nunes", "Serra Talhada"};
+
+                AlertDialog.Builder builderDeparture = new AlertDialog.Builder(context);
+
+                //set the title for alert dialog
+                builderDeparture.setTitle("PARTIDA: ");
+
+                //set items to alert dialog. i.e. our array , which will be shown as list view in alert dialog
+                builderDeparture.setItems(items, new DialogInterface.OnClickListener() {
+
+                    @Override public void onClick(DialogInterface dialog, int item) {
+                        //setting the button text to the selected itenm from the list
+                        tvDeparture.setText(items[item]);
+                    }
+                });
+
+                //Creating CANCEL button in alert dialog, to dismiss the dialog box when nothing is selected
+                builderDeparture .setCancelable(false)
+                        .setNegativeButton("CANCEL",new DialogInterface.OnClickListener() {
+
+                            @Override  public void onClick(DialogInterface dialog, int id) {
+                                //When clicked on CANCEL button the dalog will be dismissed
+                                dialog.dismiss();
+                            }
+                        });
+
+                //Creating alert dialog
+                AlertDialog alertDeparture =builderDeparture.create();
+
+                //Showingalert dialog
+                alertDeparture.show();
+
+            }
+        });
+
+        //setting button's click and implementing the onClick method
+        btArrival.setOnClickListener(new View.OnClickListener() {
+
+            @Override  public void onClick(View v) {
+                //List of items to be show in  alert Dialog are stored in array of strings/char sequences  final
+                final String[] items = {"Recife", "Gravatá", "Bezerros", "Caruaru", "Belo Jardim", "Pesqueira", "Arcoverde", "Algodões", "Custódia", "Sítio dos Nunes", "Serra Talhada"};
+
+                AlertDialog.Builder builderArrival = new AlertDialog.Builder(context);
+
+                //set the title for alert dialog
+                builderArrival.setTitle("DESTINO: ");
+
+                //set items to alert dialog. i.e. our array , which will be shown as list view in alert dialog
+                builderArrival.setItems(items, new DialogInterface.OnClickListener() {
+
+                    @Override public void onClick(DialogInterface dialog, int item) {
+                        //setting the button text to the selected itenm from the list
+                        tvArrival.setText(items[item]);
+                    }
+                });
+
+                //Creating CANCEL button in alert dialog, to dismiss the dialog box when nothing is selected
+                builderArrival .setCancelable(false)
+                        .setNegativeButton("CANCEL",new DialogInterface.OnClickListener() {
+
+                            @Override  public void onClick(DialogInterface dialog, int id) {
+                                //When clicked on CANCEL button the dalog will be dismissed
+                                dialog.dismiss();
+                            }
+                        });
+
+                //Creating alert dialog
+                AlertDialog alertArrival = builderArrival.create();
+
+                //Showingalert dialog
+                alertArrival.show();
+
+            }
+        });
+
         // Get the Intent that started this activity and extract the string
-        Bundle arrival = getIntent().getExtras();
-        mDepartureR = arrival.getString("departure");
-        mArrivalR = arrival.getString("arrival");
+//        Bundle arrival = getIntent().getExtras();
+//        mDepartureR = arrival.getString("departure");
+//        mArrivalR = arrival.getString("arrival");
 
         // [START initialize_database_ref]
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END initialize_database_ref]
 
-        mDepartureField = findViewById(R.id.field_departure);
-        mDepartureField.setText(mDepartureR);
-        mArrivalField = findViewById(R.id.field_arrival);
-        mArrivalField.setText(mArrivalR);
+        mDepartureField = tvDeparture;
+//        mDepartureField.setText(mDepartureR);
+        mArrivalField = tvArrival;
+//        mArrivalField.setText(mArrivalR);
         mSubmitButton = findViewById(R.id.fab_submit_trip);
 
         mDateButton = findViewById(R.id.button_date);
@@ -92,27 +187,32 @@ public class NewTripActivity extends BaseActivity implements View.OnClickListene
         final String arrival = mArrivalField.getText().toString();
         final String date = mDateField.getText().toString();
 
+        String partida = "PARTIDA";
+        String destino = "DESTINO";
+        String data = "DATA DA VIAGEM";
 
         // Departure is required
-        if (TextUtils.isEmpty(departure)) {
+        if (TextUtils.equals(departure, partida)) {
             mDepartureField.setError(REQUIRED);
             return;
         }
 
         // Arrival is required
-        if (TextUtils.isEmpty(arrival)) {
+        if (TextUtils.equals(arrival, destino)) {
             mArrivalField.setError(REQUIRED);
             return;
         }
 
         // Date is required
-        if (TextUtils.isEmpty(date)) {
+        if (TextUtils.equals(date, data)) {
             mDateField.setError(REQUIRED);
             return;
         }
 
+
+
         // Disable button so there are no multi-posts
-        setEditingEnabled(false);
+//        setEditingEnabled(false);
         Toast.makeText(this, "Salvando...", Toast.LENGTH_SHORT).show();
 
         // [START single_value_read]
@@ -137,7 +237,7 @@ public class NewTripActivity extends BaseActivity implements View.OnClickListene
                         }
 
                         // Finish this Activity, back to the stream
-                        setEditingEnabled(true);
+//                        setEditingEnabled(true);
                         GoToMainActivity();
                         finish();
                         // [END_EXCLUDE]
@@ -147,7 +247,7 @@ public class NewTripActivity extends BaseActivity implements View.OnClickListene
                     public void onCancelled(DatabaseError databaseError) {
                         Log.w(TAG, "getUser:onCancelled", databaseError.toException());
                         // [START_EXCLUDE]
-                        setEditingEnabled(true);
+//                        setEditingEnabled(true);
                         GoToMainActivity();
                         // [END_EXCLUDE]
                     }
@@ -203,19 +303,19 @@ public class NewTripActivity extends BaseActivity implements View.OnClickListene
 
     }
 
-    private void setEditingEnabled(boolean enabled) {
-
-        mDepartureField.setEnabled(enabled);
-        mArrivalField.setEnabled(enabled);
-        mDateField.setEnabled(enabled);
-
-
-        if (enabled) {
-            mSubmitButton.setVisibility(View.VISIBLE);
-        } else {
-            mSubmitButton.setVisibility(View.GONE);
-        }
-    }
+//    private void setEditingEnabled(boolean enabled) {
+//
+//        mDepartureField.setEnabled(enabled);
+//        mArrivalField.setEnabled(enabled);
+//        mDateField.setEnabled(enabled);
+//
+//
+//        if (enabled) {
+//            mSubmitButton.setVisibility(View.VISIBLE);
+//        } else {
+//            mSubmitButton.setVisibility(View.GONE);
+//        }
+//    }
 
     public void GoToMainActivity() {
 

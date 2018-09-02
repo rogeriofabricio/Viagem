@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VipVan da Serra</string>
+    <string name="app_name">Carona Recife - Sertão</string>
 
     <string name="email">E-mail</string>
     <string name="password">Pin</string>
@@ -114,4 +114,9 @@
 
     <string name="id_fmt">User ID: %s</string>
     <string name="email_fmt">Email: %s</string>
+
+    <string name="arrival">Destino</string>
+    <string name="departure">Partida</string>
+    <string name="tv_cidade_origem">Escolha a cidade que irá sair:</string>
+    <string name="tv_cidade_destino">Escolha a cidade que você irá:</string>
 </resources>
