@@ -118,5 +118,5 @@
     <string name="arrival">Destino</string>
     <string name="departure">Partida</string>
     <string name="tv_cidade_origem">Escolha a cidade que irá sair:</string>
-    <string name="tv_cidade_destino">Escolha a cidade que você irá:</string>
+    <string name="tv_cidade_destino">Escolha a cidade destino:</string>
 </resources>

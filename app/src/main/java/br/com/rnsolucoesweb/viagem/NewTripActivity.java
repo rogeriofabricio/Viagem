@@ -23,7 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,6 +62,8 @@ public class NewTripActivity extends BaseActivity implements View.OnClickListene
     static final int DATE_DIALOG_ID = 0;
 
     private FloatingActionButton mSubmitButton;
+
+    SimpleDateFormat dateNow;
 
 
     @Override
@@ -186,7 +190,7 @@ public class NewTripActivity extends BaseActivity implements View.OnClickListene
         final String departure = mDepartureField.getText().toString();
         final String arrival = mArrivalField.getText().toString();
         final String date = mDateField.getText().toString();
-
+        
         String partida = "PARTIDA";
         String destino = "DESTINO";
         String data = "DATA DA VIAGEM";
@@ -257,11 +261,11 @@ public class NewTripActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        Calendar calendario = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
 
-        int year = calendario.get(Calendar.YEAR);
-        int month = calendario.get(Calendar.MONTH);
-        int day = calendario.get(Calendar.DAY_OF_MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         switch (id) {
             case DATE_DIALOG_ID:
